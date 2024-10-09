@@ -1,5 +1,6 @@
 import os
 from work_instruction import Work_Instruction
+from openpyxl.utils import get_column_letter as column_letter
 import openpyxl as xl
 
 def createPartDir(part_number: str, root_path = "C:/Users/coole/OneDrive/Documents/Gestamp_Software_Projects/"):
@@ -24,3 +25,52 @@ def createWiWorkbook(work_instr: Work_Instruction, dest: str):
     except(Exception):
         print(EncodingWarning)
     wb.close()
+
+def pullOldData(file_path):
+    """
+    TODO:
+        This function should loop through A1:H36 and I20:M20 
+        storing all of the cell values as it goes. This should then
+        be repeated for all sheets.
+
+        The return value will be the collection of all of the data of 
+        that workbook.
+    """
+    wb = xl.load_workbook(file_path)
+    sheets = wb.sheetnames
+
+    oldData = {}
+
+    for sheet in sheets:
+        data_list = []
+        if (sheet != "data"):
+            ws = wb[sheet]
+            for col in range(1, 9):
+                letter = column_letter(col)
+                for row in range(1,37):
+                    data_list.append((f"{letter}row", ws[f"{letter}row"].value))
+        oldData[str(sheet)] = data_list
+
+    return oldData
+
+def storeOldData(old_data):
+    """
+    TODO:
+        This function should use the collection of old data to upload it to
+        the newly created workbook.
+    """
+
+def getAllFilePaths(parent_folder_path):
+    
+    file_paths = {}
+
+    for root_path, sub_dir, files in os.walk(parent_folder_path):
+        if (root_path != 'D:/Gestamp/Updated_Work_Instructions/'):
+            folders = root_path.split('/')
+            file_paths[str(folders[-1])] = {str(root_path): files}
+    
+    return file_paths
+
+allOldData = getAllFilePaths("D:/Gestamp/Updated_Work_Instructions/")
+
+pullOldData(list(allOldData["3QF_801_253"].keys())[0])
