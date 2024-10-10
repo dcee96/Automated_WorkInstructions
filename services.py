@@ -3,7 +3,7 @@ from work_instruction import Work_Instruction
 from openpyxl.utils import get_column_letter as column_letter
 import openpyxl as xl
 
-def createPartDir(part_number: str, root_path = "C:/Users/coole/OneDrive/Documents/Gestamp_Software_Projects/"):
+def createPartDir(part_number: str, root_path = "/Users/dylancooley/Documents/Automated_WI"):
     try:
         os.mkdir(f"{root_path}/{part_number}")
     except:
@@ -48,7 +48,7 @@ def pullOldData(file_path):
             for col in range(1, 9):
                 letter = column_letter(col)
                 for row in range(1,37):
-                    data_list.append((f"{letter}row", ws[f"{letter}row"].value))
+                    data_list.append((f"{letter}{row}", ws[f"{letter}{row}"].value))
         oldData[str(sheet)] = data_list
 
     return oldData
@@ -65,12 +65,12 @@ def getAllFilePaths(parent_folder_path):
     file_paths = {}
 
     for root_path, sub_dir, files in os.walk(parent_folder_path):
-        if (root_path != 'D:/Gestamp/Updated_Work_Instructions/'):
+        if (root_path != '/Volumes/DBCdisk/Gestamp/Updated_Work_Instructions'):
             folders = root_path.split('/')
             file_paths[str(folders[-1])] = {str(root_path): files}
     
     return file_paths
 
-allOldData = getAllFilePaths("D:/Gestamp/Updated_Work_Instructions/")
-
-pullOldData(list(allOldData["3QF_801_253"].keys())[0])
+allOldData = getAllFilePaths("/Volumes/DBCdisk/Gestamp/Updated_Work_Instructions/")
+#print(allOldData.get("3QF_801_253")[list(allOldData.get("3QF_801_253"))[0]][0])
+print(pullOldData(f"{list(allOldData.get("3QF_801_253"))[0]}/{allOldData.get("3QF_801_253")[list(allOldData.get("3QF_801_253"))[0]][0]}"))
