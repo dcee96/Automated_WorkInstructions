@@ -1,7 +1,7 @@
 import qrcode
 import os
 import openpyxl
-import WorkInstruction
+from Models import *
 
 class Utilites:
     def __init__(self) -> None:
