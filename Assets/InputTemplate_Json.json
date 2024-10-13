@@ -1,0 +1,40 @@
+{
+    "part number": "",
+    "part name": "",
+    "sap number": "",
+    "ec level": "",
+    "dept": "",
+    "Hole Checks": {
+        "Hole 1": {
+            "hole": "",
+            "nom size": 0.0,
+            "tol": -0.0,
+            "desc": ""
+        }
+    },
+    "SPC Checks": {
+        "SPC 1": {
+            "min val": 0.0,
+            "max val": 0.0
+        }
+    },
+    "Profile Checks": {
+        "section 1": {
+            "feeler": "",
+            "max tol": "",
+            "min tol": ""
+        }
+    },
+    "Trim Checks": {
+        "section 1": {
+            "min tol": 0.0,
+            "max tol": 0.0
+        }
+    },
+    "Template Checks": {
+        "section 1": ""
+    },
+    "Visual inspection": {
+        "section 1": ""
+    }
+}
