@@ -11,7 +11,7 @@ class __Hole:
         self.tolerance = ("", tol),
         self.description = ("", desc)
 
-class __Spc:
+class __SpcPoint:
     def __init__(self,
                  min_value,
                  max_value ) -> None:
@@ -42,7 +42,7 @@ class WorkInstruction:
                  sapNumber,
                  ecLevel,
                  holeChecks: list[__Hole],
-                 spcChecks: list[__Spc],
+                 spcChecks: list[__SpcPoint],
                  profileChecks: list[__Profile],
                  trimChecks: list[__Trim],
                  templateChecks: list[__TemplateCheck],
