@@ -5,7 +5,7 @@ class UIController(customtkinter.CTkFrame):
         super().__init__(master, **kwargs)
         
         customtkinter.set_appearance_mode("dark")
-        customtkinter.set_default_color_theme("green")
+        customtkinter.set_default_color_theme("Automated_WorkInstructions\Assets\UI_Assets\GUI_Theme.json")
 
     def run_build(self, sourceFilePath: str, destFilePath: str) -> bool: 
         try:
