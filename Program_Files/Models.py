@@ -57,7 +57,7 @@ class WorkInstruction:
         self.partName = ("J32", partName)
         self.partNumber = ("J34", partNumber)
         self.sapNumber = ("J35", sapNumber)
-        self.ecLevel = ("", ecLevel)
+        self.ecLevel = ("M34", ecLevel)
         self.department = (["L21", f"{department} OPERATION PROCEDURE  AV GUAGE & FIXTURE: # 36447"], ["I28", f"{department} OPERATION PROCEDURE"])
         self.holeChecks = ("Hole Checks","I2:M20", holeChecks.values)
         self.spcChecks = ("SPC Checks","I2:M20", spcChecks.values)
