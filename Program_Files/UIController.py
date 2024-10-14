@@ -49,8 +49,11 @@ class WelcomePage(ctk.CTkFrame):
         label = ctk.CTkLabel(self, text="Automated Excel Transfer", font=("Arial", 24))
         label.pack(pady=20)
 
-        btn_next = ctk.CTkButton(self, text="File Selector", command=lambda: controller.show_frame(File_Selector))
-        btn_next.pack(pady=10)
+        btn_file_selector = ctk.CTkButton(self, text="File Selector", command=lambda: controller.show_frame(File_Selector))
+        btn_file_selector.pack(pady=10)
+
+        btn_qrcode = ctk.CTkButton(self, text="QR Code Generator", command=lambda: controller.show_frame(QR_Generator))
+        btn_qrcode.pack(pady=10)
 
         label = ctk.CTkLabel(self, text="Designed by Dylan Cooley", font=("Arial", 10))
         label.pack(pady=20, anchor="s")
@@ -74,8 +77,8 @@ class File_Selector(ctk.CTkFrame):
         self.btn_extract = ctk.CTkButton(self, text="Extract Data", command= self.extract_data)
         self.btn_extract.pack(pady=10)
 
-        self.btn_extract = ctk.CTkButton(self, text="Go Back", command=lambda: controller.show_frame(WelcomePage))
-        self.btn_extract.pack(pady=10)
+        self.btn_go_back = ctk.CTkButton(self, text="Go Back", command=lambda: controller.show_frame(WelcomePage))
+        self.btn_go_back.pack(pady=10)
 
         self.excel_files = []
     
@@ -102,6 +105,38 @@ class File_Selector(ctk.CTkFrame):
             messagebox.showinfo("Extraction Complete", "All of the data has been extracted successfully!\nAny image files will be stored in the same folder\nthe orginal excel file was stored in")
         except Exception as e:
             messagebox.showerror("Error", str(e))
+
+
+class QR_Generator(ctk.CTkFrame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+
+        self.controller = controller
+
+        self.url = ""
+        self.destination = ""
+        self.name = ""
+
+        self.label_frame = ctk.CTkLabel(self, text="QR Code Generator ", font=("arial", 24))
+        self.label_frame.pack(pady=10)
+
+        self.url_input = ctk.CTkEntry(self, placeholder_text="pdf url", textvariable=self.url)
+        self.url_input.pack(pady=10)
+
+        self.name_input = ctk.CTkEntry(self, placeholder_text="file name", textvariable=self.name)
+        self.name_input.pack(pady=10)
+
+        self.destination_input = ctk.CTkEntry(self, placeholder_text="file destination", textvariable=self.destination)
+        self.destination_input.pack(pady=10)
+
+        self.btn_generate = ctk.CTkButton(self, text="Generate", command=lambda: create_qrcode())
+        self.btn_generate.pack(pady=10)
+
+        self.btn_go_back = ctk.CTkButton(self, text="Go Back", command=lambda: controller.show_frame(WelcomePage))
+        self.btn_go_back.pack(pady=10)
+
+        def create_qrcode(self):
+            generate_qr_code(self.url, self.name, self.destination)
 
 # Running the application
 if __name__ == "__main__":

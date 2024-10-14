@@ -1,6 +1,9 @@
+import openpyxl.worksheet
+import openpyxl.worksheet.cell_watch
 import qrcode
 import os
 import openpyxl
+from openpyxl.cell import Cell
 from openpyxl.drawing.image import Image
 from PIL import Image as PILImage
 import io
@@ -52,3 +55,47 @@ def extract_data_from_excel(files, cell_range):
                 pil_image.save(image_name)
     
     return workbook_data
+
+def generate_updated_work_instruction(files: list, dest_file_path: str):
+    """
+    Inserts cell data and images from the given data dictionary into an Excel worksheet.
+
+    :param data_dict: Dictionary containing 'cell_data', 'images', and 'shapes'
+    :param output_file: Path to save the output Excel file
+    """
+    data_dict = extract_data_from_excel(files, "I2:M20")
+
+    for file in files:
+        wb = openpyxl.Workbook(file)
+        for sheet_data in data_dict.items():
+            pass
+        for sheet_name in wb.sheetnames:
+            ws = wb[sheet_name]
+            
+
+    
+    if 'cell_data' in data_dict:
+        for cell, value in data_dict['cell_data'].items():
+            ws[cell] = value  # Place the value in the correct cell
+
+    # Insert images
+    if 'images' in data_dict and data_dict['images']:
+        # Loop through the image list and insert them one by one
+        for idx, img_path in enumerate(data_dict['images'], start=1):
+            try:
+                # Create an image object
+                img = Image(img_path)
+
+                # Define where to place the image (e.g., starting at cell I20 onwards)
+                # You can adjust the cell position based on your need
+                img_cell = f'I{20 + idx * 10}'  # Placing images starting from row 20, incrementing by 10 rows
+                ws.add_image(img, img_cell)
+            except Exception as e:
+                print(f"Error inserting image {img_path}: {e}")
+
+    # Save the workbook to the specified output file
+    wb.save(output_file)
+    print(f"Data successfully inserted into {output_file}")
+        
+
+
