@@ -1,14 +1,17 @@
 import customtkinter
 
-class UIController(customtkinter.CTkFrame):
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
-        
-        customtkinter.set_appearance_mode("dark")
-        customtkinter.set_default_color_theme("Automated_WorkInstructions\Assets\UI_Assets\GUI_Theme.json")
+class App(customtkinter.CTk):
+    def __init__(self):
+        super().__init__()
+        self.geometry("600x500")
+        self.title("CTk example")
 
-    def run_build(self, sourceFilePath: str, destFilePath: str) -> bool: 
-        try:
-            return True
-        except: 
-            return False
+        # add widgets to app
+        self.button = customtkinter.CTkButton(self, command=self.button_click)
+        self.button.grid(row=0, column=0, padx=20, pady=10)
+
+    def run_app(self):
+        self.mainloop()
+        
+    def button_click(self):
+        print("button click")

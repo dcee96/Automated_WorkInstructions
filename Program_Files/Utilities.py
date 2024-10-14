@@ -3,11 +3,11 @@ import os
 import openpyxl
 from Models import *
 
-class Utilites:
+class Services:
     def __init__(self) -> None:
-        pass
+        self.qrCode = ""
 
-    def generate_QRCode(self, link: str, fileName: str, fileDestination: str) -> None:
+    def generate_QRCode(link: str, fileName: str, fileDestination: str) -> None:
         """
             Arguments: 
                 link: a string of a url that points to the PDF.
@@ -27,4 +27,6 @@ class Utilites:
 
     def create_WorkInstruction(self, workInstruction: WorkInstruction, fileDestination: str) -> None:
         wb = openpyxl.load_workbook("Automated_WorkInstructions\Assets\CheckingFixtureInstructionTemplate.xlsx")
-        workSheets = wb.sheetnames
+        for ws in wb.sheetnames:
+            worksheet = wb[ws]
+            

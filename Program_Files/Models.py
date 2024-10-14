@@ -1,3 +1,5 @@
+import json
+
 class _HoleChecks:
     """ This class represents one hole on a part \n
         class variables:
@@ -7,40 +9,82 @@ class _HoleChecks:
             description: list[str]
     """
     def __init__(self, **kwargs: list) -> None:
-        self.values = kwargs
+        self.hole_column = "I"
+        self.nom_column = "J"
+        self.tolerance_column = "K"
+        self.description_column = "L"
+        self.holes = kwargs.get("holes") if kwargs.get("holes") != None else []
+        self.nom_values = kwargs.get("nom_values") if kwargs.get("nom_values") != None else []
+        self.tolerances = kwargs.get("tolerances") if kwargs.get("tolerances") != None else []
+        self.description = kwargs.get("description") if kwargs.get("description") != None else []
+
+    def add_HoleCheck(self, **kwargs: list):
+        self.holes.extend(kwargs.get("holes")) if kwargs.get("holes") != None else self.holes
+        self.nom_values.extend(kwargs.get("nom_values")) if kwargs.get("nom_values") != None else self.nom_values
+        self.tolerances.extend(kwargs.get("tolerances")) if kwargs.get("tolerances") != None else self.tolerances
+        self.description.extend(kwargs.get("description")) if kwargs.get("description") != None else self.description
 
 class _SpcPoints:
-    """ There should be two keys, lcl and ucl. Each key should have a list of floats 
-    associated to it. The index of the list values +1 should be used to indicate the
-    spc number. """
+    """
+        class variables:
+            min_values: [float],
+            max_values: [float],
+            specs: [float]
+    """
     def __init__(self, **kwargs: list[float]) -> None:
-        self.values = kwargs
+        self.specs = kwargs.get("specs") if kwargs.get("specs") != None else []
+        self.min_values = kwargs.get("min_values") if kwargs.get("min_values") != None else []
+        self.max_values = kwargs.get("max_values") if kwargs.get("max_values") != None else []
+
+    def add_SpcPoints(self, **kwargs: list[float]) -> None:
+        self.min_values.extend(kwargs.get("min_values")) if kwargs.get("min_values") != None else self.min_values
+        self.max_values.extend(kwargs.get("max_values")) if kwargs.get("max_values") != None else self.max_values
+    
+    def getAll(self) -> tuple[list[float],list[float],list[float]]:
+        return self.specs, self.min_values, self.max_values
 
 class _ProfileChecks:
-    """ There should be three keys, feelers, ucl and lcl. Each key should have a list of values 
-    associated with it. The index of the list values +1 should be used to indicate the
-    profile check number. """
+    """
+        class variables:
+            feeler: [str]
+            max_tol: [float]
+            min_tol: [float]
+    """
     def __init__(self, **kwargs) -> None:
-        self.values = kwargs
+        self.feeler = kwargs.get("feeler") if kwargs.get("feeler") != None else []
+        self.max_tol = kwargs.get("max_tol") if kwargs.get("max_tol") != None else []
+        self.min_tol = kwargs.get("min_tol") if kwargs.get("min_tol") != None else []
 
 class _TrimChecks:
-    """ There should be two keys, lcl and ucl. Each key should have a list of floats 
-    associated to it. The index of the list values +1 should be used to indicate the
-    trim check number. """
+    """
+        class Variables:
+            section: [str]
+            max_tol: [float]
+            min_tol: [float]
+    """
     def __init__(self, **kwargs) -> None:
-        self.values = kwargs
+        self.section = kwargs.get("section") if kwargs.get("section") != None else []
+        self.max_tol = kwargs.get("max_tol") if kwargs.get("max_tol") != None else []
+        self.min_tol = kwargs.get("min_tol") if kwargs.get("min_tol") != None else []
 
 class _TemplateChecks:
-    """ This will just be a list of different template checks that may be used."""
-    def __init__(self, *args) -> None:
-        self.values = args
+    """
+        section: [str]
+    """
+    def __init__(self, **kwargs) -> None:
+        self.section = kwargs.get("section") if kwargs.get("section") != None else []
 
 class _VisualInspections:
-    """ This will just be a list of different Visual defects that should be monitored."""
-    def __init__(self, *args) -> None:
-        self.values = args
+    """
+        section: [str]
+    """
+    def __init__(self, **kwargs) -> None:
+        self.section = kwargs.get("section") if kwargs.get("section") != None else []
 
 class WorkInstruction:
+
+    """TODO: Redesign init to take in a dict that contains all relavent values needed
+    to create a class. This dict should be created from the JSON module."""
     def __init__(self,
                  partName: str,
                  partNumber: str,
@@ -52,16 +96,22 @@ class WorkInstruction:
                  profileChecks = _ProfileChecks,
                  trimChecks = _TrimChecks,
                  templateChecks = _TemplateChecks,
-                 visualInspection = _VisualInspections ) -> None:
+                 visualInspection = _VisualInspections) -> None:
         
-        self.partName = ("J32", partName)
-        self.partNumber = ("J34", partNumber)
-        self.sapNumber = ("J35", sapNumber)
-        self.ecLevel = ("M34", ecLevel)
-        self.department = (["L21", f"{department} OPERATION PROCEDURE  AV GUAGE & FIXTURE: # 36447"], ["I28", f"{department} OPERATION PROCEDURE"])
-        self.holeChecks = ("Hole Checks","I2:M20", holeChecks.values)
-        self.spcChecks = ("SPC Checks","I2:M20", spcChecks.values)
-        self.profileChecks = ("Profile Checks","I2:M20", profileChecks.values)
-        self.trimChecks = ("Trim Checks","I2:M20", trimChecks.values)
-        self.templateChecks = ("Template checks","I2:M20", templateChecks.values)
-        self.VisualInspection = ("Visual inspection","I2:M20", visualInspection.values)
+        self.partName = ("", partName)
+        self.partNumber = ("", partNumber)
+        self.sapNumber = ("", sapNumber)
+        self.ecLevel = ("", ecLevel)
+        self.department = (("L21", f"{department}  OPERATION PROCEDURE  AV GUAGE & FIXTURE: # 36447"),
+                            ("I28", f"{department} OPERATION PROCEDURE"))
+        self.holeChecks = holeChecks
+        self.spcChecks = spcChecks
+        self.profileChecks = profileChecks
+        self.trimChecks = trimChecks
+        self.templateChecks = templateChecks
+        self.VisualInspection = visualInspection
+    
+    """TODO: Create a function that returns that work instruction in the form of a JSON str."""
+
+    def to_json(self) -> json:
+        return json

@@ -1,40 +1,126 @@
 {
-    "part number": "",
-    "part name": "",
-    "sap number": "",
-    "ec level": "",
-    "dept": "",
-    "Hole Checks": {
-        "Hole 1": {
-            "hole": "",
-            "nom size": 0.0,
-            "tol": -0.0,
-            "desc": ""
+    "part number": "3QF_801_253",
+    "part name": "Sill Inner LH",
+    "sap number": "S12530V66W",
+    "ec level": "TZ-006",
+    "dept": "HS",
+    "Hole Checks": 
+        {   
+            "1": {
+                "nom size": 13.0,
+                "tol": 0.10,
+                "desc": "Collar Hole"
+            },
+            "2": {
+                "nom size": "N/A",
+                "tol": "N/A",
+                "desc": "Process Hole"
+            },
+            "3": {
+                "nom size": "N/A",
+                "tol": "N/A",
+                "desc": "Process Hole"
+            }
         }
-    },
-    "SPC Checks": {
-        "SPC 1": {
-            "min val": 0.0,
-            "max val": 0.0
+    ,
+    "SPC Checks": 
+        {
+            "SPC1": {
+                "min val": -1.0,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC2": {
+                "min val": -1.0,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC3": {
+                "min val": -0.80,
+                "max val": 0.80,
+                "spec": 0.0
+            },
+            "SPC4": {
+                "min val": -0.50,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC5": {
+                "min val": -0.80,
+                "max val": 0.80,
+                "spec": 0.0
+            },
+            "SPC6": {
+                "min val": -0.50,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC7": {
+                "min val": -0.80,
+                "max val": 0.80,
+                "spec": 0.0
+            },
+            "SPC8": {
+                "min val": -1.0,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC9": {
+                "min val": -1.0,
+                "max val": 0.50,
+                "spec": 0.0
+            },
+            "SPC10": {
+                "min val": 4.5,
+                "max val": 7,
+                "spec": 5.0
+            },
+            "SPC11": {
+                "min val": 4.5,
+                "max val": 7.0,
+                "spec": 5.0
+            }
         }
-    },
-    "Profile Checks": {
-        "section 1": {
-            "feeler": "",
-            "max tol": "",
-            "min tol": ""
+    ,
+    "Profile Checks": 
+        {
+            "A to D": {
+                "feeler": "Taper Gauge",
+                "max tol": 5.5,
+                "min tol": 4.5
+            },
+            "E to H": {
+                "feeler": "Taper Gauge",
+                "max tol": 7.0,
+                "min tol": 4.5
+            },
+            "K & L": {
+                "feeler": "Taper Gauge",
+                "max tol": 5.0,
+                "min tol": 4.0
+            }
         }
-    },
-    "Trim Checks": {
-        "section 1": {
-            "min tol": 0.0,
-            "max tol": 0.0
+    ,
+    "Trim Checks": 
+        {
+            "1": {
+                "desc": "Sides and one end is cut in laser"
+            },
+            "2" : {
+                "desc": "Ensure there is excess of material all around the part for ensure the part is cut properly in laser cut process"
+            },
+            "3" : {
+                "desc": "Use flush block '2' to check part trim  +/-2.000 Use like reference the marks in the checking fixture Can be acceptable until 3.0 mm  if the trim only has some small areas shorter."
+            }
+        }   
+    ,
+    "Template Checks": 
+        {
+            "section": ""
         }
-    },
-    "Template Checks": {
-        "section 1": ""
-    },
-    "Visual inspection": {
-        "section 1": ""
-    }
+    ,
+    "Visual inspection":  
+        {
+            "section": ""
+        }
 }
