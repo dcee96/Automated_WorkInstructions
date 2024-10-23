@@ -66,7 +66,7 @@ def generate_updated_work_instruction(files: list, dest_file_path: str):
     data_dict = extract_data_from_excel(files, "I2:M20")
 
     for file in files:
-        wb = openpyxl.Workbook(file)
+        wb = openpyxl.Workbook("Automated_WorkInstructions\\Assets\\CheckingFixtureInstructionTemplate.xlsx")
         for sheet_data in data_dict.items():
             pass
         for sheet_name in wb.sheetnames:
@@ -74,28 +74,27 @@ def generate_updated_work_instruction(files: list, dest_file_path: str):
             
 
     
-    if 'cell_data' in data_dict:
-        for cell, value in data_dict['cell_data'].items():
-            ws[cell] = value  # Place the value in the correct cell
+        if 'cell_data' in data_dict:
+            for cell, value in data_dict['cell_data'].items():
+                ws[cell] = value  # Place the value in the correct cell
 
     # Insert images
-    if 'images' in data_dict and data_dict['images']:
-        # Loop through the image list and insert them one by one
-        for idx, img_path in enumerate(data_dict['images'], start=1):
-            try:
+        """    if 'images' in data_dict and data_dict['images']:
+            # Loop through the image list and insert them one by one
+            for idx, img_path in enumerate(data_dict['images'], start=1):
+                try:
                 # Create an image object
-                img = Image(img_path)
+                    img = Image(img_path)
 
-                # Define where to place the image (e.g., starting at cell I20 onwards)
-                # You can adjust the cell position based on your need
-                img_cell = f'I{20 + idx * 10}'  # Placing images starting from row 20, incrementing by 10 rows
-                ws.add_image(img, img_cell)
-            except Exception as e:
-                print(f"Error inserting image {img_path}: {e}")
+                    img_cell = f'A1'
+                    ws.add_image(img, img_cell)
+                except Exception as e:
+                    print(f"Error inserting image {img_path}: {e}") """
 
     # Save the workbook to the specified output file
-    wb.save(output_file)
-    print(f"Data successfully inserted into {output_file}")
+    wb.save(dest_file_path)
+    print(f"Data successfully inserted into {dest_file_path}")
         
 
 
+generate_updated_work_instruction(["D:\\Gestamp\\Work_Instructions\\3QF_801_253\\3QF_801_253_CFI-HS.xlsx"],"test.xlsx")
